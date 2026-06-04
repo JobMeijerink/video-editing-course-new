@@ -60,9 +60,9 @@ export default function TransformationStory() {
             </h2>
             
             <div className="space-y-4 text-[15px] md:text-lg leading-relaxed text-foreground/80">
-              <p>4 years ago, I graduated from university, but I didn't want a regular job. I wanted to learn a valuable skill that allowed me to live on my own terms. Preferably something remote.</p>
+              <p>4 years ago, I graduated from university, however it didn't convince me to enter the regular job market. I wanted to learn a valuable skill that allowed me to live on my own terms. Preferably something remote.</p>
               
-              <p>Then I thought about video editing. At first, it was just a hobby, but I realized this skill could change everything because social media was becoming more and more popular, and I realized earning a serious income with it wasn't that much of a reach.</p>
+              <p>Then I thought about video editing. At first, it was just a hobby, but I realized this skill could change everything because social media was becoming more and more popular, and I realized earning a serious income with it was realistic.</p>
               
               <p>Within just a few weeks of practising and applying for jobs, I landed my first remote client. Within a few months, I left everything behind in the Netherlands and started my journey in South-America, all while editing videos from my laptop. For years now, I'm editing videos from wherever I want, places I'd only dreamed of visiting, let alone working.</p>
               
