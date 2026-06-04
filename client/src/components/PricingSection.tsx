@@ -1,66 +1,146 @@
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Check, X, Shield } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-const pricingTiers = [
+const GRAD =
+  "linear-gradient(100deg,#22d3ee 0%,#6366f1 45%,#a855f7 70%,#ec4899 100%)";
+
+type Feature = { included: boolean; text: string; sub?: string };
+
+type Tier = {
+  name: string;
+  amount: string;
+  per: string;
+  subprice: React.ReactNode;
+  popular: boolean;
+  features: Feature[];
+  cta: string;
+  ctaVariant: "outline" | "solid" | "vip";
+  testId: string;
+};
+
+const pricingTiers: Tier[] = [
   {
     name: "Free Access",
-    price: "$0/month",
+    amount: "$0",
+    per: " /forever",
+    subprice: <>No card required — join in 60 seconds</>,
     popular: false,
     features: [
-      { included: true, text: "Community Access" },
-      { included: true, text: "Client Pool (free potential client giveaways)" },
-      { included: true, text: "Premium Subscription Giveways" },
-      { included: false, text: "Weekly Q&A Session" },
+      { included: true, text: "Community access" },
+      {
+        included: true,
+        text: "Client Pool access",
+        sub: "1 claim/month — after a 48h head start",
+      },
+      { included: true, text: "Premium subscription giveaways" },
+      { included: false, text: "Weekly Q&A session" },
       { included: false, text: "Chat support" },
-      { included: false, text: "Vantage Point Editing Mastery" },
-      { included: false, text: "Vantage Point Editing Practice" },
-      { included: false, text: "Client Engine" },
-      { included: false, text: "Asset library + Premium Assets Access" },
-      { included: false, text: "Custom career roadmap" }
+      { included: false, text: "Editing Mastery course" },
+      { included: false, text: "Editing Practice drills" },
+      { included: false, text: "Client Engine system" },
+      { included: false, text: "Asset library + premium assets" },
+      { included: false, text: "Custom career roadmap" },
     ],
-    cta: "Start With Free Access",
-    testId: "Client Engine Package"
+    cta: "Start with free access",
+    ctaVariant: "outline",
+    testId: "Client Engine Package",
   },
   {
     name: "Premium",
-    price: "$29/month",
+    amount: "$29",
+    per: " /month",
+    subprice: (
+      <>
+        or <strong className="font-semibold text-indigo-300">$290/year</strong>{" "}
+        — 2 months free
+        <br />
+        Annual unlocks your 1-on-1 call
+      </>
+    ),
     popular: true,
     features: [
-      { included: true, text: "Vantage Point Editing Mastery" },
-      { included: true, text: "Vantage Point Editing Practice" },
-      { included: true, text: "Client Engine" },
-      { included: true, text: "Personal Asset library + Many More Premium Assets" },
-      { included: true, text: "High Client Pool Priority (free potential client giveaways)" },
-      { included: true, text: "1-on-1 Call With Jacob (Value: $250 - Only with Annual Payment)" },
+      {
+        included: true,
+        text: "Editing Mastery",
+        sub: "The full self-paced course",
+      },
+      {
+        included: true,
+        text: "Editing Practice",
+        sub: "Guided drills with feedback",
+      },
+      {
+        included: true,
+        text: "Client Engine",
+        sub: "The system to land paying clients",
+      },
+      { included: true, text: "Personal asset library + premium assets" },
+      {
+        included: true,
+        text: "Instant Client Pool access",
+        sub: "Claim up to 5 leads/month, before the free pool",
+      },
       { included: true, text: "Chat support" },
-      { included: false, text: "Private Whatsapp Group" },
-      { included: false, text: "1 on 1 Mentorship" },
-      { included: false, text: "Custom career roadmap" }
+      {
+        included: true,
+        text: "1-on-1 call with Jacob",
+        sub: "$250 value — included with annual",
+      },
+      { included: false, text: "Private WhatsApp group" },
+      { included: false, text: "1-on-1 mentorship" },
+      { included: false, text: "Custom career roadmap" },
     ],
     cta: "Go Premium",
-    testId: "Premium"
+    ctaVariant: "solid",
+    testId: "Premium",
   },
   {
     name: "VIP",
-    price: "$1499/year",
+    amount: "$1,499",
+    per: " /year",
+    subprice: (
+      <>
+        ≈ $125/month · by application
+        <br />
+        Limited seats each cohort
+      </>
+    ),
     popular: false,
     features: [
       { included: true, text: "Everything in Premium" },
-      { included: true, text: "1 on 1 Mentorship" },
-      { included: true, text: "Private Whatsapp Group" },
-      { included: true, text: "Higher Client Pool Priority (free potential client giveaways)" },
+      {
+        included: true,
+        text: "1-on-1 mentorship",
+        sub: "Ongoing personal guidance",
+      },
+      {
+        included: true,
+        text: "Private WhatsApp group",
+        sub: "Direct access to Jacob",
+      },
+      {
+        included: true,
+        text: "Hand-matched clients",
+        sub: "Highest-budget leads routed to you first, no competition",
+      },
       { included: true, text: "VIP support" },
       { included: true, text: "Early access to new content" },
       { included: true, text: "Exclusive networking events" },
-      { included: true, text: "Custom career roadmap" }
+      { included: true, text: "Custom career roadmap" },
     ],
-    cta: "Get VIP Access",
-    testId: "VIP"
-  }
+    cta: "Apply — book a call",
+    ctaVariant: "vip",
+    testId: "VIP",
+  },
 ];
+
+const ctaClasses: Record<Tier["ctaVariant"], string> = {
+  outline:
+    "bg-transparent text-white border border-white/20 hover:bg-white/5",
+  solid: "text-[#04101f] font-bold border-0 hover:brightness-110",
+  vip: "border border-purple-500/50 text-purple-200 hover:bg-purple-500/10",
+};
 
 export default function PricingSection() {
   const handleSelectPlan = (planName: string) => {
@@ -68,112 +148,148 @@ export default function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="py-16 lg:py-20 bg-background section-pattern relative">
-      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-transparent via-transparent to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-transparent via-transparent to-transparent pointer-events-none z-10" />
+    <section
+      id="pricing"
+      className="py-16 lg:py-20 bg-background section-pattern relative"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <ScrollReveal>
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-3xl font-bold text-primary/40 animate-arrow">&gt;&gt;</span>
-          </div>
-          <h2 className="text-3xl lg:text-5xl font-bold leading-tight mb-6 text-bright-white">
-            Choose Your Path to{" "}
-            <span className="relative inline-block pb-3">
-              <span className="bg-gradient-to-r from-primary via-accent to-chart-2 bg-clip-text text-transparent">
-                Freedom
+          <div className="text-center mb-14">
+            <h2 className="text-3xl lg:text-5xl font-extrabold leading-tight tracking-tight text-bright-white">
+              Choose Your Path to{" "}
+              <span className="relative inline-block">
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: GRAD }}
+                >
+                  Freedom
+                </span>
+                <span
+                  className="absolute left-0 right-0 -bottom-2 h-[5px] rounded"
+                  style={{ backgroundImage: GRAD }}
+                  aria-hidden="true"
+                />
               </span>
-              <svg className="absolute -bottom-1 left-0 w-full h-4" viewBox="0 0 120 16" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path d="M6 2 Q30 14 60 10 T114 8" stroke="url(#gradient10)" strokeWidth="3" fill="none" strokeLinecap="round"/>
-                <defs>
-                  <linearGradient id="gradient10" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#00d9ff" />
-                    <stop offset="100%" stopColor="#9333ea" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </span>
-          </h2>
+            </h2>
+            <p className="mt-6 text-muted-foreground">
+              Start free. Learn the craft. Land the clients.
+            </p>
           </div>
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-          {pricingTiers.map((tier, index) => (
-            <Card 
-              key={index}
-              className={`p-8 backdrop-blur-md border-2 flex flex-col card-3d ${
-                tier.popular 
-                  ? 'bg-gradient-to-b from-primary/10 to-accent/5 border-primary scale-105 shadow-2xl' 
-                  : 'bg-card/50 border-card-border'
-              }`}
-              data-testid={`pricing-card-${tier.testId}`}
-            >
-              {tier.popular && (
-                <Badge className="self-center mb-4 bg-primary text-primary-foreground px-4 py-1">
-                  MOST POPULAR
-                </Badge>
-              )}
-              
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold mb-2 text-bright-white">{tier.name}</h3>
-                <div className="flex items-baseline justify-center mb-4">
-                  <span className="font-bold text-[38px]">{tier.price}</span>
-                </div>
-              </div>
-
-              <ul className="space-y-4 mb-8 flex-1">
-                {tier.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start space-x-3">
-                    {feature.included ? (
-                      <Check className="w-5 h-5 text-chart-4 flex-shrink-0 mt-0.5" />
-                    ) : (
-                      <X className="w-5 h-5 text-muted-foreground/30 flex-shrink-0 mt-0.5" />
-                    )}
-                    <span className={feature.included ? '' : 'text-muted-foreground/50'}>
-                      {feature.text}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button 
-                size="lg"
-                className={`w-full text-lg font-bold rounded-xl ${
-                  tier.popular 
-                    ? 'bg-gradient-to-r from-primary to-accent hover:opacity-90' 
-                    : ''
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 items-stretch">
+            {pricingTiers.map((tier) => (
+              <div
+                key={tier.testId}
+                className={`rounded-[22px] p-8 pt-9 flex flex-col transition-transform duration-300 ${
+                  tier.popular
+                    ? "bg-[#0f1730] border-[1.5px] border-cyan-400 shadow-[0_0_0_1px_rgba(34,211,238,0.25),0_24px_60px_-28px_rgba(34,211,238,0.55)] lg:-translate-y-3 lg:hover:-translate-y-[18px]"
+                    : "bg-[#0d1322] border border-white/10 lg:hover:-translate-y-1.5"
                 }`}
-                variant={tier.popular ? 'default' : 'outline'}
-                onClick={() => {
-                  handleSelectPlan(tier.name);
-                  window.open('https://www.skool.com/vantage-point-editing-6309/plans', '_blank');
-                }}
-                data-testid={`button-select-${tier.testId}`}
+                data-testid={`pricing-card-${tier.testId}`}
               >
-                {tier.cta}
-              </Button>
-            </Card>
-          ))}
+                {tier.popular && (
+                  <span className="self-center mb-4 bg-cyan-400 text-[#04293a] text-xs font-bold tracking-[0.08em] uppercase px-4 py-1.5 rounded-full">
+                    Most popular
+                  </span>
+                )}
+
+                <div className="text-center mb-1">
+                  <h3 className="text-xl font-semibold text-bright-white">
+                    {tier.name}
+                  </h3>
+                  <div className="mt-2">
+                    <span className="text-[46px] font-extrabold tracking-tight text-white">
+                      {tier.amount}
+                    </span>
+                    <span className="text-[17px] font-medium text-muted-foreground">
+                      {tier.per}
+                    </span>
+                  </div>
+                  <p className="mt-1 mb-1 text-[13px] leading-snug text-muted-foreground min-h-[36px]">
+                    {tier.subprice}
+                  </p>
+                </div>
+
+                <div className="h-px bg-white/10 my-5" aria-hidden="true" />
+
+                <ul className="space-y-[15px] flex-1">
+                  {tier.features.map((feature, featureIndex) => (
+                    <li
+                      key={featureIndex}
+                      className="flex items-start gap-3 text-[14.5px] leading-relaxed"
+                    >
+                      {feature.included ? (
+                        <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                      ) : (
+                        <X className="w-5 h-5 text-white/25 flex-shrink-0 mt-0.5" />
+                      )}
+                      <span
+                        className={
+                          feature.included ? "text-white" : "text-white/30"
+                        }
+                      >
+                        {feature.text}
+                        {feature.sub && (
+                          <span
+                            className={`block text-[12.5px] mt-0.5 ${
+                              feature.included
+                                ? "text-muted-foreground"
+                                : "text-white/25"
+                            }`}
+                          >
+                            {feature.sub}
+                          </span>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  className={`mt-7 w-full text-center py-4 rounded-[14px] text-base font-semibold cursor-pointer transition active:scale-[0.985] ${ctaClasses[tier.ctaVariant]}`}
+                  style={
+                    tier.ctaVariant === "solid"
+                      ? { backgroundImage: GRAD }
+                      : undefined
+                  }
+                  onClick={() => {
+                    handleSelectPlan(tier.name);
+                    window.open(
+                      "https://www.skool.com/vantage-point-editing-6309/plans",
+                      "_blank",
+                    );
+                  }}
+                  data-testid={`button-select-${tier.testId}`}
+                >
+                  {tier.cta}
+                </button>
+              </div>
+            ))}
           </div>
         </ScrollReveal>
 
         {/* Guarantee */}
         <ScrollReveal delay={0.3}>
           <Card className="p-8 backdrop-blur-md bg-card/50 border-card-border max-w-3xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-            <div className="p-4 rounded-full bg-chart-4/10 border-2 border-chart-4/20 flex-shrink-0">
-              <Shield className="w-12 h-12 text-chart-4" />
+            <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+              <div className="p-4 rounded-full bg-chart-4/10 border-2 border-chart-4/20 flex-shrink-0">
+                <Shield className="w-12 h-12 text-chart-4" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2 text-bright-white">
+                  14-Day Money-Back Guarantee
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  If you complete at least half of the classes included in your
+                  package and don't feel confident in your editing skills or
+                  your sales skills get a full refund. No questions asked.
+                  Plus, payment plans are available to make this investment
+                  even easier.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-2 text-bright-white">14-Day Money-Back Guarantee</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                If you complete at least half of the classes included in your package and don't feel confident in your editing skills or 
-                your sales skills get a full refund. No questions asked. Plus, payment plans are available to make this 
-                investment even easier.
-              </p>
-            </div>
-          </div>
           </Card>
         </ScrollReveal>
       </div>
