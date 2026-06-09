@@ -8,7 +8,7 @@ const components = [
     title: "FREE Community & Client Pool",
     icon: Users,
     color: "from-indigo-400 to-violet-500",
-    description: "Supportive community sharing assets, feedback, wins and possibility to find work directly in the client pool.",
+    description: "Supportive community sharing assets, feedback, wins + FREE client giveaways landing on your lap.",
     details: "Connect with fellow editors, share your progress, and access exclusive opportunities!",
     comingSoon: false
   },
@@ -16,8 +16,8 @@ const components = [
     title: "Editing Mastery + AI Implementation",
     icon: MonitorPlay,
     color: "from-cyan-400 to-blue-500",
-    description: "The most efficient video editing tutorial out there, everything you need to know in under 15 hours!",
-    details: "Software setup, shortcuts, getting familiar with the workspace, effect controls, color correction, audio correction, subtitles, exporting your video & much more!",
+    description: "The most efficient video editing tutorial out there. Only learn what you need to know and let AI do the rest.",
+    details: "All the ins and outs of my editing process in under 15 hours + AI tool-training (unbelievably simple!).",
     comingSoon: false
   },
   {
