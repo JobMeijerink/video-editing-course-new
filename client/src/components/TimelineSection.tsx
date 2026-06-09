@@ -13,7 +13,7 @@ const components = [
     comingSoon: false
   },
   {
-    title: "Vantage Point Editing Mastery",
+    title: "Editing Mastery + AI Implementation",
     icon: MonitorPlay,
     color: "from-cyan-400 to-blue-500",
     description: "The most efficient video editing tutorial out there, everything you need to know in under 15 hours!",
@@ -21,10 +21,10 @@ const components = [
     comingSoon: false
   },
   {
-    title: "Vantage Point Premium Practice",
+    title: "Premium Practice",
     icon: PlayCircle,
     color: "from-purple-400 to-pink-500",
-    description: "Multiple live edit tutorials for a wide range of videos + a library consisting of 100+ hours of footage. Use that same footage to add to your portfolio and watch the clients come!",
+    description: "Multiple live edit tutorials for a wide range of videos + a library consisting of 100+ hours of footage. Directly link these edits in your portfolio, free to share!",
     details: "Practice material: vlogs, advertisements, podcasts, short form & more. Get feedback and inspiration from the community & Jacob himself!",
     comingSoon: false
   },
@@ -45,11 +45,11 @@ const components = [
     comingSoon: false
   },
   {
-    title: "Content Strategy",
+    title: "Digital Nomad Coaching",
     icon: Lightbulb,
     color: "from-yellow-400 to-amber-500",
-    description: "Master the art of creating content that attracts clients and builds your personal brand.",
-    details: "Learn how to position yourself as an expert and create content that converts!",
+    description: "Tag along in my life as a full-time traveler and video editor.",
+    details: "How to keep up a routine, how to save money while traveling, how I plan my trips & more!",
     comingSoon: true
   }
 ];
