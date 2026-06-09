@@ -32,7 +32,7 @@ export default function TransformationStory() {
             </div>
             
             <div className="rounded-2xl p-6 border border-primary/20 bg-primary/5 backdrop-blur-sm max-w-md relative z-10">
-              <p className="text-[15px] md:text-lg italic text-foreground/90 leading-relaxed">''4 years ago, I betted on myself and tried to make a living through video editing. Fast forward, I am working from anywhere in the world and built up crazy connections within the creator space. This all without anyone's help. If I could do it without any guidance, you can do it with my help.''</p>
+              <p className="text-[15px] md:text-lg italic text-foreground/90 leading-relaxed">''If I could do it without anyone's help, you can 100% do it with mine.''</p>
             </div>
           </ScrollReveal>
 
